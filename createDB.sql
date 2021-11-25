@@ -2,14 +2,11 @@ CREATE DATABASE EdutechDB;
 
 USE EdutechDB;
 
-CREATE TABLE test (
-    a int not null
-);
-
 CREATE TABLE Professores (
     Nome VARCHAR(100) NOT NULL PRIMARY KEY,
     Email VARCHAR(100) NOT NULL,
-    Turmas 
+    Turmas VARCHAR(500) NOT NULL,
+    Turno CHAR NOT NULL
 );
 
 CREATE TABLE Alunos (
@@ -17,7 +14,7 @@ CREATE TABLE Alunos (
     Email VARCHAR(100) NOT NULL,
     Turma VARCHAR(50) NOT NULL,
     CGM INT NOT NULL,
-    TURNO CHAR NOT NULL,
-    Status_ BIT NOT NULL
-    Professor 
+    Turno CHAR NOT NULL,
+    Status_ VARCHAR(10) NOT NULL,
+    Professor VARCHAR(100) NOT NULL FOREIGN KEY REFERENCES Professores(Nome)
 );

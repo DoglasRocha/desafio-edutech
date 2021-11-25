@@ -10,7 +10,7 @@ class Instructor:
         
     @staticmethod
     def validate_email(email: str) -> str:
-        pattern = re.compile('[a-z]{0,}@escola.pr.gov.br')
+        pattern = re.compile('[a-z.]{0,}@escola.pr.gov.br')
         
         if pattern.match(email):
             return email
