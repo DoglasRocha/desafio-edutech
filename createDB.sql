@@ -1,20 +1,9 @@
-CREATE DATABASE EdutechDB;
-
 USE EdutechDB;
 
-CREATE TABLE Professores (
-    Nome VARCHAR(100) NOT NULL PRIMARY KEY,
-    Email VARCHAR(100) NOT NULL,
-    Turmas VARCHAR(500) NOT NULL,
-    Turno CHAR NOT NULL
-);
+select * from Professores;
 
-CREATE TABLE Alunos (
-    Nome VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) NOT NULL,
-    Turma VARCHAR(50) NOT NULL,
-    CGM INT NOT NULL,
-    Turno CHAR NOT NULL,
-    Status_ VARCHAR(10) NOT NULL,
-    Professor VARCHAR(100) NOT NULL FOREIGN KEY REFERENCES Professores(Nome)
-);
+select * from Alunos;
+
+select * from Alunos alu
+    inner join Professores pro
+    on alu.Professor = pro.Nome

@@ -1,4 +1,5 @@
 import re
+from cursor import connect_to_database
 
 class Instructor:
     
@@ -6,7 +7,22 @@ class Instructor:
         self.__name = name
         self.__email = Instructor.validate_email(email)
         self.__classes = classes
-        self.__shift = shift
+        self.__classes_str = self.convert_classes_list_to_string()
+        self.__shift = Instructor.validate_shift(shift)
+        
+        self.send_data_to_database()
+        
+    def send_data_to_database(self) -> None:
+        
+        cursor = connect_to_database()
+        
+        cursor.execute(f'''INSERT Professores
+                           VALUES (
+                                '{self.__name}', '{self.__email}', '{self.__classes_str}',
+                                '{self.__shift}'
+                           )''')
+        
+        cursor.close()    
         
     @staticmethod
     def validate_email(email: str) -> str:
@@ -17,3 +33,19 @@ class Instructor:
     
         email = input('Por favor, insira um e-mail válido! ')
         return Instructor.validate_email(email)
+    
+    def convert_classes_list_to_string(self) -> str:
+        
+        return ','.join(self.__classes)
+    
+    @staticmethod
+    def validate_shift(shift: str) -> str:
+        
+        options = ['M', 'T']
+        
+        if shift.upper() in options:
+            return shift
+        
+        shift = input('Por favor, insira um turno válido! ').upper()
+        return Instructor.validate_shift(shift)
+    

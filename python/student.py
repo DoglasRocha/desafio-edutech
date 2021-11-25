@@ -12,17 +12,19 @@ class Student:
         self.__status = Student.validate_status(status)
         self.__teacher = teacher
         
+        self.send_data_to_database()
+        
     def send_data_to_database(self) -> None:
         cursor = connect_to_database()
         
-        cursor.execute(f'''INSERT Alunos (
-                                Nome, Email, Turma, CGM, Turno, Status, Professor
-                           ) 
-                           values (
-                                {self.__name}, {self.__email}, {self.__class},
-                                {self.__CGM}, {self.__shift}, {self.__status},
-                                {self.__teacher}
+        cursor.execute(f'''INSERT Alunos 
+                           VALUES (
+                                '{self.__name}', '{self.__email}', '{self.__class}',
+                                {self.__CGM}, '{self.__shift}', '{self.__status}',
+                                '{self.__teacher}'
                            )''')
+        
+        cursor.close()
     
     @staticmethod
     def validate_email(email: str) -> str:
@@ -41,7 +43,7 @@ class Student:
         pattern = re.compile('[0-9]{8,}')
         
         if pattern.match(CGM):
-            return pattern
+            return CGM
         
         CGM = input('Por favor, insira um CGM válido! ')
         return Student.validate_CGM(CGM)
@@ -67,3 +69,4 @@ class Student:
         
         shift = input('Por favor, insira um turno válido! ').upper()
         return Student.validate_shift(shift)
+    

@@ -2,3 +2,5 @@
 *.log
 test.py
 cursor.py
+.fake
+.ionide
