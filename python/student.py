@@ -1,9 +1,10 @@
 import re
-from cursor import connect_to_database
+from program_messenger import ProgramMessenger
 
 class Student:
     
-    def __init__(self, name: str, email: str, _class: str, CGM: str, shift: str, status: str, teacher: str) -> None:
+    def __init__(self, name: str, email: str, _class: str, CGM: str,
+                 shift: str, status: str, teacher: str) -> None:
         self.__name = name
         self.__email = Student.validate_email(email)
         self.__class = _class
@@ -12,19 +13,16 @@ class Student:
         self.__status = Student.validate_status(status)
         self.__teacher = teacher
         
-        self.send_data_to_database()
+        self.send_to_database()
         
-    def send_data_to_database(self) -> None:
-        cursor = connect_to_database()
-        
-        cursor.execute(f'''INSERT Alunos 
-                           VALUES (
-                                '{self.__name}', '{self.__email}', '{self.__class}',
-                                {self.__CGM}, '{self.__shift}', '{self.__status}',
-                                '{self.__teacher}'
-                           )''')
-        
-        cursor.close()
+    def send_to_database(self) -> None:
+        ProgramMessenger.insert_student_into_database(self.__name,
+                                                      self.__email,
+                                                      self.__class,
+                                                      self.__CGM,
+                                                      self.__shift,
+                                                      self.__status,
+                                                      self.__teacher)
     
     @staticmethod
     def validate_email(email: str) -> str:

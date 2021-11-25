@@ -4,3 +4,4 @@ test.py
 cursor.py
 .fake
 .ionide
+__pycache__

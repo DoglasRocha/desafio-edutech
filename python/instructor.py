@@ -1,28 +1,23 @@
 import re
-from cursor import connect_to_database
+from program_messenger import ProgramMessenger
 
 class Instructor:
     
-    def __init__(self, name: str, email: str, classes: list, shift: str) -> None:
+    def __init__(self, name: str, email: str, classes: list, 
+                 shift: str) -> None:
         self.__name = name
         self.__email = Instructor.validate_email(email)
         self.__classes = classes
         self.__classes_str = self.convert_classes_list_to_string()
         self.__shift = Instructor.validate_shift(shift)
         
-        self.send_data_to_database()
+        self.send_to_database()
         
     def send_data_to_database(self) -> None:
-        
-        cursor = connect_to_database()
-        
-        cursor.execute(f'''INSERT Professores
-                           VALUES (
-                                '{self.__name}', '{self.__email}', '{self.__classes_str}',
-                                '{self.__shift}'
-                           )''')
-        
-        cursor.close()    
+        ProgramMessenger.insert_teacher_into_database(self.__name,
+                                                      self.__email,
+                                                      self.__classes_str,
+                                                      self.__shift)
         
     @staticmethod
     def validate_email(email: str) -> str:
