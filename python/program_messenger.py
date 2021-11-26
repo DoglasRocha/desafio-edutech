@@ -24,3 +24,11 @@ class ProgramMessenger:
             )'''
             
         execute_query(query)
+        
+    @staticmethod
+    def select_all_teacher_names() -> list:
+        
+        query = 'SELECT Nome FROM Professores'
+        
+        response = execute_query(query).fetchall()
+        return response

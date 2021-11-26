@@ -1,17 +1,21 @@
 import re
 from program_messenger import ProgramMessenger
+from errors import (InvalidNameError, InvalidEmailError, 
+                    InvalidClassError, InvalidCGMError,
+                    InvalidShiftError, InvalidStatusError,
+                    InvalidTeacherNameError)
 
 class Student:
     
     def __init__(self, name: str, email: str, _class: str, CGM: str,
                  shift: str, status: str, teacher: str) -> None:
-        self.__name = name
-        self.__email = Student.validate_email(email)
-        self.__class = _class
-        self.__CGM = Student.validate_CGM(CGM)
-        self.__shift = Student.validate_shift(shift)
-        self.__status = Student.validate_status(status)
-        self.__teacher = teacher
+        self.__name = Student.__validate_name(name)
+        self.__email = Student.__validate_email(email)
+        self.__class = Student.__validate_class(_class)
+        self.__CGM = Student.__validate_CGM(CGM)
+        self.__shift = Student.__validate_shift(shift)
+        self.__status = Student.__validate_status(status)
+        self.__teacher = Student.__validate_teacher(teacher)
         
         self.send_to_database()
         
@@ -25,46 +29,76 @@ class Student:
                                                       self.__teacher)
     
     @staticmethod
-    def validate_email(email: str) -> str:
+    def __validate_name(name: str) -> str:
+        
+        pattern = re.compile('[a-zA-Z ]{1,}')
+        
+        if pattern.match(name):
+            return name
+        
+        raise InvalidNameError()
+    
+    @staticmethod
+    def __validate_email(email: str) -> str:
         
         pattern = re.compile('[a-z.]{0,}@escola.pr.gov.br')
         
         if pattern.match(email):
             return email
     
-        email = input('Por favor, insira um e-mail válido! ')
-        return Student.validate_email(email)
+        raise InvalidEmailError()
     
     @staticmethod
-    def validate_CGM(CGM: str) -> str:
+    def __validate_class(class_: str) -> str:
+        
+        pattern = re.compile('[0-9]{6,}')
+        
+        if pattern.match(class_):
+            return class_
+        
+        raise InvalidClassError()
+    
+    @staticmethod
+    def __validate_CGM(CGM: str) -> str:
         
         pattern = re.compile('[0-9]{8,}')
         
         if pattern.match(CGM):
             return CGM
         
-        CGM = input('Por favor, insira um CGM válido! ')
-        return Student.validate_CGM(CGM)
+        raise InvalidCGMError()
     
     @staticmethod
-    def validate_status(status: str) -> bool:
+    def __validate_status(status: str) -> bool:
         
         options = ['ATIVO', 'INATIVO']
         
         if status.upper() in options:
             return status
         
-        status = input('Por favor, insira um status válido! ').upper()
-        return Student.validate_status(status)
+        raise InvalidStatusError()
     
     @staticmethod
-    def validate_shift(shift: str) -> str:
+    def __validate_shift(shift: str) -> str:
         
         options = ['M', 'T']
         
         if shift.upper() in options:
             return shift
         
-        shift = input('Por favor, insira um turno válido! ').upper()
-        return Student.validate_shift(shift)
+        raise InvalidShiftError()
+    
+    @staticmethod
+    def __validate_teacher(teacher: str) -> str:
+        
+        pattern = re.compile('[a-zA-Z ]{1,}')
+        teachers = ProgramMessenger.select_all_teacher_names()
+        
+        for teacher_name in teachers:
+            if (pattern.match(teacher) and teacher in teacher_name):
+                return teachers
+        
+        raise InvalidTeacherNameError()
+        
+        
     
