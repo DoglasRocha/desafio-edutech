@@ -1,46 +1,34 @@
 import re
 from program_messenger import ProgramMessenger
+from school_member import SchoolMember
+from errors import InvalidClassesError
 
-class Instructor:
+class Instructor(SchoolMember):
     
-    def __init__(self, name: str, email: str, classes: list, 
+    def __init__(self, name: str, email: str, classes: str, 
                  shift: str) -> None:
-        self.__name = name
-        self.__email = Instructor.validate_email(email)
-        self.__classes = classes
-        self.__classes_str = self.convert_classes_list_to_string()
-        self.__shift = Instructor.validate_shift(shift)
+        self.__name = Instructor.__validate_name(name)
+        self.__email = Instructor.__validate_email(email)
+        self.__classes = Instructor.__validate_classes(classes)
+        self.__shift = Instructor.__validate_shift(shift)
         
-        self.send_to_database()
-        
-    def send_data_to_database(self) -> None:
+    def send_to_database(self) -> None:
         ProgramMessenger.insert_teacher_into_database(self.__name,
                                                       self.__email,
-                                                      self.__classes_str,
+                                                      self.__classes,
                                                       self.__shift)
         
     @staticmethod
-    def validate_email(email: str) -> str:
-        pattern = re.compile('[a-z.]{0,}@escola.pr.gov.br')
+    def __validate_classes(classes: str) -> str:
         
-        if pattern.match(email):
-            return email
+        pattern = re.compile('[0-9]{6,}')
+        classes_list = classes.split(',')
+        
+        for class_ in classes_list:
+            if not pattern.match(class_):
+                raise InvalidClassesError()
+            
+        return classes
     
-        email = input('Por favor, insira um e-mail válido! ')
-        return Instructor.validate_email(email)
     
-    def convert_classes_list_to_string(self) -> str:
-        
-        return ','.join(self.__classes)
-    
-    @staticmethod
-    def validate_shift(shift: str) -> str:
-        
-        options = ['M', 'T']
-        
-        if shift.upper() in options:
-            return shift
-        
-        shift = input('Por favor, insira um turno válido! ').upper()
-        return Instructor.validate_shift(shift)
     

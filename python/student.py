@@ -1,11 +1,10 @@
 import re
 from program_messenger import ProgramMessenger
-from errors import (InvalidNameError, InvalidEmailError, 
-                    InvalidClassError, InvalidCGMError,
-                    InvalidShiftError, InvalidStatusError,
-                    InvalidTeacherNameError)
+from school_member import SchoolMember
+from errors import (InvalidClassError, InvalidCGMError,
+                    InvalidStatusError, InvalidTeacherNameError)
 
-class Student:
+class Student(SchoolMember):
     
     def __init__(self, name: str, email: str, _class: str, CGM: str,
                  shift: str, status: str, teacher: str) -> None:
@@ -17,8 +16,6 @@ class Student:
         self.__status = Student.__validate_status(status)
         self.__teacher = Student.__validate_teacher(teacher)
         
-        self.send_to_database()
-        
     def send_to_database(self) -> None:
         ProgramMessenger.insert_student_into_database(self.__name,
                                                       self.__email,
@@ -27,26 +24,6 @@ class Student:
                                                       self.__shift,
                                                       self.__status,
                                                       self.__teacher)
-    
-    @staticmethod
-    def __validate_name(name: str) -> str:
-        
-        pattern = re.compile('[a-zA-Z ]{1,}')
-        
-        if pattern.match(name):
-            return name
-        
-        raise InvalidNameError()
-    
-    @staticmethod
-    def __validate_email(email: str) -> str:
-        
-        pattern = re.compile('[a-z.]{0,}@escola.pr.gov.br')
-        
-        if pattern.match(email):
-            return email
-    
-        raise InvalidEmailError()
     
     @staticmethod
     def __validate_class(class_: str) -> str:
@@ -79,16 +56,6 @@ class Student:
         raise InvalidStatusError()
     
     @staticmethod
-    def __validate_shift(shift: str) -> str:
-        
-        options = ['M', 'T']
-        
-        if shift.upper() in options:
-            return shift
-        
-        raise InvalidShiftError()
-    
-    @staticmethod
     def __validate_teacher(teacher: str) -> str:
         
         pattern = re.compile('[a-zA-Z ]{1,}')
@@ -96,9 +63,7 @@ class Student:
         
         for teacher_name in teachers:
             if (pattern.match(teacher) and teacher in teacher_name):
-                return teachers
+                return teacher
         
         raise InvalidTeacherNameError()
         
-        
-    
