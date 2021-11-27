@@ -4,8 +4,9 @@ from errors import (InvalidNameError, InvalidEmailError, InvalidClassError,
                     InvalidCGMError, InvalidStatusError, InvalidShiftError, 
                     InvalidTeacherNameError)
 from student import Student
+from insert_member_screen import InsertMemberScreen
 
-class InsertStudentScreen:
+class InsertStudentScreen(InsertMemberScreen):
     
     def __init__(self, root) -> None:
         
@@ -26,16 +27,6 @@ class InsertStudentScreen:
         self.__set_labels()
         self.__set_entries()
         self.__configure_screen()
-        
-    def __configure_screen(self) -> None:
-        
-        self.__window.title('Inserir Aluno')
-        self.__mainframe.grid(column=0, row=0, sticky=(N,S,W,E))
-        self.__window.columnconfigure(0, weight=1)
-        self.__window.rowconfigure(0, weight=1)
-        
-        for child in self.__mainframe.winfo_children():
-            child.grid_configure(padx=10, pady=2.5)
     
     def __set_buttons(self) -> None:
         

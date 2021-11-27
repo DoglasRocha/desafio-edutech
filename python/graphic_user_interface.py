@@ -43,7 +43,7 @@ class UserInterface:
                                                                      sticky=(W,E))
     
     def __set_insert_teacher_screen(self) -> None:
-        window = Toplevel(self.__root)
+        window = InsertTeacherScreen(self.__root)
             
     def __set_insert_students_screen(self) -> None:
         window = InsertStudentScreen(self.__root)

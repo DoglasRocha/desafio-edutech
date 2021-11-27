@@ -30,5 +30,3 @@ class Instructor(SchoolMember):
             
         return classes
     
-    
-    
