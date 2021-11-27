@@ -8,11 +8,11 @@ class Student(SchoolMember):
     
     def __init__(self, name: str, email: str, _class: str, CGM: str,
                  shift: str, status: str, teacher: str) -> None:
-        self.__name = Student.__validate_name(name)
-        self.__email = Student.__validate_email(email)
+        self.__name = Student.validate_name(name)
+        self.__email = Student.validate_email(email)
         self.__class = Student.__validate_class(_class)
         self.__CGM = Student.__validate_CGM(CGM)
-        self.__shift = Student.__validate_shift(shift)
+        self.__shift = Student.validate_shift(shift)
         self.__status = Student.__validate_status(status)
         self.__teacher = Student.__validate_teacher(teacher)
         

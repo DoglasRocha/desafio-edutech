@@ -4,9 +4,9 @@ from errors import (InvalidNameError, InvalidEmailError, InvalidClassError,
                     InvalidCGMError, InvalidStatusError, InvalidShiftError, 
                     InvalidTeacherNameError)
 from student import Student
-from insert_member_screen import InsertMemberScreen
+from screen import Screen
 
-class InsertStudentScreen(InsertMemberScreen):
+class InsertStudentScreen(Screen):
     
     def __init__(self, root) -> None:
         
@@ -26,7 +26,7 @@ class InsertStudentScreen(InsertMemberScreen):
         self.__set_buttons()
         self.__set_labels()
         self.__set_entries()
-        self.configure_screen()
+        self.configure_screen('Inserir Aluno')
     
     def __set_buttons(self) -> None:
         

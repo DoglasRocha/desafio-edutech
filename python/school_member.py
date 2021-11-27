@@ -6,7 +6,7 @@ import re
 class SchoolMember(metaclass=ABCMeta):
     
     @staticmethod
-    def __validate_name(name: str) -> str:
+    def validate_name(name: str) -> str:
         
         pattern = re.compile('[a-zA-Z ]{1,}')
         
@@ -16,7 +16,7 @@ class SchoolMember(metaclass=ABCMeta):
         raise InvalidNameError()
     
     @staticmethod
-    def __validate_email(email: str) -> str:
+    def validate_email(email: str) -> str:
         
         pattern = re.compile('[a-z.]{0,}@escola.pr.gov.br')
         
@@ -26,7 +26,7 @@ class SchoolMember(metaclass=ABCMeta):
         raise InvalidEmailError()
     
     @staticmethod
-    def __validate_shift(shift: str) -> str:
+    def validate_shift(shift: str) -> str:
         
         options = ['M', 'T']
         

@@ -7,10 +7,10 @@ class Instructor(SchoolMember):
     
     def __init__(self, name: str, email: str, classes: str, 
                  shift: str) -> None:
-        self.__name = Instructor.__validate_name(name)
-        self.__email = Instructor.__validate_email(email)
+        self.__name = Instructor.validate_name(name)
+        self.__email = Instructor.validate_email(email)
         self.__classes = Instructor.__validate_classes(classes)
-        self.__shift = Instructor.__validate_shift(shift)
+        self.__shift = Instructor.validate_shift(shift)
         
     def send_to_database(self) -> None:
         ProgramMessenger.insert_teacher_into_database(self.__name,
