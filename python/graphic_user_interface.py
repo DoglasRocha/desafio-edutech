@@ -1,5 +1,6 @@
 from tkinter import Tk, ttk
 from tkinter import *
+from insert_teacher_screen import InsertTeacherScreen
 from insert_student_screen import InsertStudentScreen
 
 class UserInterface:
