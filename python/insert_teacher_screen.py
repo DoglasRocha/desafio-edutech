@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import StringVar, Toplevel, ttk, messagebox
 from screen import Screen
 from instructor import Instructor
+from assets import button, label, entry, radio_button
 from errors import (InvalidNameError, InvalidEmailError, 
                     InvalidClassesError, InvalidShiftError)
 
@@ -25,43 +26,30 @@ class InsertTeacherScreen(Screen):
         
     def __set_buttons(self) -> None:
         
-        ttk.Button(self.mainframe, 
-                   text='Cancelar', 
-                   command=self.window.destroy).grid(column=5, row=6,
-                                                       sticky=(W,E))
-        ttk.Button(self.mainframe,
-                   text='Criar Professor',
-                   command=self.__try_to_create_teacher).grid(column=6,
-                                                              row=6,
-                                                              sticky=(W,E))
+        button(self.mainframe, 'Cancelar', 5, 6, (W,E), (self.window
+                                                         .destroy))
+        
+        button(self.mainframe, 'Criar Professor', 6, 6, (W,E), (self
+                                            .__try_to_create_teacher))
                    
     def __set_labels(self) -> None:
         
-        ttk.Label(self.mainframe, text='Nome: ').grid(column=1, 
-                                                        row=1)
-        ttk.Label(self.mainframe, text='E-mail: ').grid(column=3, 
-                                                          row=1)
-        ttk.Label(self.mainframe, text='Turmas (separe as turmas por vírgulas): ').grid(
-                  column=5, row=1)
-        
-        ttk.Label(self.mainframe, text='Turno: ').grid(column=1, 
-                                                       row=2)
+        label(self.mainframe, 1, 1, text='Nome:')
+        label(self.mainframe, 3, 1, text='E-mail:')
+        label(self.mainframe, 5, 1, text='Turmas (separe as turmas'
+              + 'por vírgula):')
+        label(self.mainframe, 1, 2, text='Turno:')
         
     def __set_entries(self) -> None:
         
-        ttk.Entry(self.mainframe, textvariable=self.__name).grid(
-            column=2, row=1)
-        ttk.Entry(self.mainframe, textvariable=self.__email).grid(
-            column=4, row=1)
-        ttk.Entry(self.mainframe, textvariable=self.__classes).grid(
-            column=6, row=1)
+        entry(self.mainframe, self.__name, 2, 1)
+        entry(self.mainframe, self.__email, 4, 1)
+        entry(self.mainframe, self.__classes, 6, 1)
         
-        ttk.Radiobutton(self.mainframe, variable=self.__shift,
-                  text='Manhã', value='M').grid(column=2, row=2, 
-                                            sticky=W)
-        ttk.Radiobutton(self.mainframe, variable=self.__shift,
-                  text='Tarde', value='T').grid(column=3, row=2, 
-                                            sticky=W)
+        radio_button(self.mainframe, self.__shift, 'Manhã', 'M', 2, 
+                     2, (W))
+        radio_button(self.mainframe, self.__shift, 'Tarde', 'T', 3, 
+                     2, (W))
     
     def __try_to_create_teacher(self) -> None:
         

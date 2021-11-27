@@ -3,6 +3,7 @@ from tkinter import *
 from insert_teacher_screen import InsertTeacherScreen
 from insert_student_screen import InsertStudentScreen
 from screen import Screen
+from assets import button, label
 
 class UserInterface(Screen):
     
@@ -15,30 +16,21 @@ class UserInterface(Screen):
         self.window.mainloop()
         
     def __set_all_buttons(self) -> None:
-        ttk.Button(self.mainframe, 
-                   text='Inserir Professor', 
-                   command=self.__set_insert_teacher_screen).grid(column=2, 
-                                                                  row=1, 
-                                                                  sticky=(W,E))
-        ttk.Button(self.mainframe, 
-                   text='Inserir Aluno', 
-                   command=self.__set_insert_students_screen).grid(column=2, 
-                                                                   row=2, 
-                                                                   sticky=(W,E))
-        ttk.Button(self.mainframe, 
-                   text='Visualizar Professores',
-                   command=self.__set_teachers_table_screen).grid(
-                                                    column=2, row=3, 
-                                                       sticky=(W,E))
-        ttk.Button(self.mainframe, 
-                   text='Visualizar Alunos',
-                   command=self.__set_students_table_screen).grid(
-                                                    column=2, row=4,
-                                                  sticky=(W,E))
-        ttk.Label(self.mainframe).grid(column=2, row=5, sticky=(W,E))
-        ttk.Button(self.mainframe, text='Sair', command=exit).grid(column=2, 
-                                                                     row=6, 
-                                                                     sticky=(W,E))
+        button(self.mainframe, 'Inserir Professor', 2, 1, (W,E),
+               self.__set_insert_teacher_screen)
+        
+        button(self.mainframe, 'Inserir aluno', 2, 2, (W,E),
+               self.__set_insert_students_screen)
+        
+        button(self.mainframe, 'Visualizar Professores', 2, 3, (W,E),
+               self.__set_teachers_table_screen)
+        
+        button(self.mainframe, 'Visualizar Alunos', 2, 4, (W,E),
+               self.__set_students_table_screen)
+        
+        label(self.mainframe, 2, 5, (W,E))
+        
+        button(self.mainframe, 'Sair', 2, 6, (W,E), exit)
     
     def __set_insert_teacher_screen(self) -> None:
         InsertTeacherScreen(self.window)
