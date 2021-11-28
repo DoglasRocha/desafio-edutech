@@ -8,7 +8,7 @@ from errors import (InvalidNameError, InvalidEmailError,
 
 class InsertTeacherScreen(Screen):
     
-    def __init__(self, root) -> None:
+    def __init__(self, root: Tk) -> None:
         
         self.__window = Toplevel(root)
         self.__mainframe = ttk.Frame(self.__window, padding='5')
@@ -66,8 +66,10 @@ class InsertTeacherScreen(Screen):
                        self.__shift.get())
             
             message = ('Você tem certeza que quer cadastrar esse professor?\n'
-                       + f'Nome: {self.__name.get()}, Email: {self.__email.get()}\n'
-                       + f'Turmas: {self.__classes.get()}, Turno: {self.__shift.get()}')
+                       + f'Nome: {self.__name.get()}\n' 
+                       + f'Email: {self.__email.get()}\n'
+                       + f'Turmas: {self.__classes.get()}\n'
+                       + f'Turno: {self.__shift.get()}')
             
             if messagebox.askyesno('Tem certeza?', message=message):
                 instructor.send_to_database()

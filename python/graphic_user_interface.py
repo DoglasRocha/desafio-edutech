@@ -18,7 +18,7 @@ class UserInterface(Screen):
     def __set_all_buttons(self) -> None:
         button(self.__mainframe, 'Inserir Professor', 2, 1, (W,E),
                self.__set_insert_teacher_screen) 
-        button(self.__mainframe, 'Inserir aluno', 2, 2, (W,E),
+        button(self.__mainframe, 'Inserir Aluno', 2, 2, (W,E),
                self.__set_insert_students_screen)
         button(self.__mainframe, 'Visualizar Professores', 2, 3, (W,E),
                self.__set_teachers_table_screen)
@@ -34,9 +34,9 @@ class UserInterface(Screen):
         InsertStudentScreen(self.__root)
         
     def __set_teachers_table_screen(self) -> None:
-        pass
+        TeachersTableScreen(self.__root)
 
     def __set_students_table_screen(self) -> None:
-        pass        
+        StudentsTableScreen(self.__root)
         
 UserInterface()

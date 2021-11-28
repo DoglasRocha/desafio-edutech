@@ -9,7 +9,7 @@ from screen import Screen
 
 class InsertStudentScreen(Screen):
     
-    def __init__(self, root) -> None:
+    def __init__(self, root: Tk) -> None:
         
         self.__window = Toplevel(root)
         self.__mainframe = ttk.Frame(self.__window, padding='5')
@@ -47,43 +47,35 @@ class InsertStudentScreen(Screen):
         label(self.__mainframe, 1, 2, text='CGM:')
         label(self.__mainframe, 3, 2, text='Turno:')
         
-        label(self.__mainframe, 1, 1, text='Professor:')
-        label(self.__mainframe, 1, 1, text='Status:')
+        label(self.__mainframe, 1, 3, text='Professor:')
+        label(self.__mainframe, 3, 3, text='Status:')
             
     def __set_entries(self) -> None:
         
-        ttk.Entry(self.__mainframe, textvariable=self.__name).grid(
-            column=2, row=1)
-        ttk.Entry(self.__mainframe, textvariable=self.__email).grid(
-            column=4, row=1)
-        ttk.Entry(self.__mainframe, textvariable=self.__class).grid(
-            column=6, row=1)
+        entry(self.__mainframe, self.__name, 2, 1)
+        entry(self.__mainframe, self.__email, 4, 1)
+        entry(self.__mainframe, self.__class, 6, 1)
         
-        ttk.Entry(self.__mainframe, textvariable=self.__CGM).grid(
-            column=2, row=2)
-        ttk.Radiobutton(self.__mainframe, variable=self.__shift,
-                  text='Manhã', value='M').grid(column=4, row=2, 
-                                            sticky=W)
-        ttk.Radiobutton(self.__mainframe, variable=self.__shift,
-                  text='Tarde', value='T').grid(column=5, row=2, 
-                                            sticky=W)
+        entry(self.__mainframe, self.__CGM, 2, 2)
+        radio_button(self.__mainframe, self.__shift, 'Manhã', 'M',
+                     4, 2, (W))
+        radio_button(self.__mainframe, self.__shift, 'Tarde', 'T',
+                     5, 2, (W))
         
-        ttk.Entry(self.__mainframe, textvariable=self.__teacher).grid(
-            column=2, row=3)            
-        ttk.Radiobutton(self.__mainframe, variable=self.__status,
-                        text='Ativo', value='ATIVO').grid(
-            column=4, row=3, sticky=W)
-        ttk.Radiobutton(self.__mainframe, variable=self.__status,
-                        text='Inativo', value='INATIVO').grid(
-            column=5, row=3, sticky=W)      
+        entry(self.__mainframe, self.__teacher, 2, 3)     
+        radio_button(self.__mainframe, self.__status, 'Ativo', 'ATIVO',
+                     4, 3, (W))
+        radio_button(self.__mainframe, self.__status, 'Inativo', 'INATIVO',
+                     5, 3, (W))  
             
     def __try_to_create_student(self) -> None:
         
         for data in self.__data:
             if '' == data.get():
                 (messagebox.
-                showwarning('Entrada inválida', 
-                            message='Todos os campos devem ser preenchidos!!'))
+                showwarning(
+                    'Entrada inválida', 
+                    message='Todos os campos devem ser preenchidos!!'))
                 break
             
         try:
@@ -92,9 +84,12 @@ class InsertStudentScreen(Screen):
                               self.__shift.get(), self.__status.get(), 
                               self.__teacher.get())
             message = ('Você tem certeza que quer cadastrar esse aluno?\n'
-                       + f'Nome: {self.__name.get()}, Email: {self.__email.get()}\n'
-                       + f'Turma: {self.__class.get()}, CGM: {self.__CGM.get()}\n'
-                       + f'Status: {self.__status.get()}, Turno: {self.__shift.get()}\n'
+                       + f'Nome: {self.__name.get()}\n'
+                       + f'Email: {self.__email.get()}\n'
+                       + f'Turma: {self.__class.get()}\n' 
+                       + f'CGM: {self.__CGM.get()}\n'
+                       + f'Status: {self.__status.get()}\n'
+                       + f'Turno: {self.__shift.get()}\n'
                        + f'Nome do professor: {self.__teacher.get()}')
             
             if messagebox.askyesno('Tem certeza?', message=message):
