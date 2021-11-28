@@ -8,35 +8,30 @@ from assets import button, label
 class UserInterface(Screen):
     
     def __init__(self) -> None:
-        self.window = Tk()
-        self.mainframe = ttk.Frame(self.window, padding='5')
+        self.__root = Tk()
+        self.__mainframe = ttk.Frame(self.__root, padding='5')
         self.__set_all_buttons()
-        
-        self.configure_screen('Escola Edutech')
-        self.window.mainloop()
+        self.configure_screen('Escola Edutech', self.__root, 
+                              self.__mainframe)
+        self.__root.mainloop()
         
     def __set_all_buttons(self) -> None:
-        button(self.mainframe, 'Inserir Professor', 2, 1, (W,E),
-               self.__set_insert_teacher_screen)
-        
-        button(self.mainframe, 'Inserir aluno', 2, 2, (W,E),
+        button(self.__mainframe, 'Inserir Professor', 2, 1, (W,E),
+               self.__set_insert_teacher_screen) 
+        button(self.__mainframe, 'Inserir aluno', 2, 2, (W,E),
                self.__set_insert_students_screen)
-        
-        button(self.mainframe, 'Visualizar Professores', 2, 3, (W,E),
+        button(self.__mainframe, 'Visualizar Professores', 2, 3, (W,E),
                self.__set_teachers_table_screen)
-        
-        button(self.mainframe, 'Visualizar Alunos', 2, 4, (W,E),
+        button(self.__mainframe, 'Visualizar Alunos', 2, 4, (W,E),
                self.__set_students_table_screen)
-        
-        label(self.mainframe, 2, 5, (W,E))
-        
-        button(self.mainframe, 'Sair', 2, 6, (W,E), exit)
+        label(self.__mainframe, 2, 5, (W,E))
+        button(self.__mainframe, 'Sair', 2, 6, (W,E), exit)
     
     def __set_insert_teacher_screen(self) -> None:
-        InsertTeacherScreen(self.window)
+        InsertTeacherScreen(self.__root)
             
     def __set_insert_students_screen(self) -> None:
-        InsertStudentScreen(self.window)
+        InsertStudentScreen(self.__root)
         
     def __set_teachers_table_screen(self) -> None:
         pass

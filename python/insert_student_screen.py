@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from errors import (InvalidNameError, InvalidEmailError, InvalidClassError,
                     InvalidCGMError, InvalidStatusError, InvalidShiftError, 
                     InvalidTeacherNameError)
+from assets import button, radio_button, label, entry
 from student import Student
 from screen import Screen
 
@@ -10,8 +11,8 @@ class InsertStudentScreen(Screen):
     
     def __init__(self, root) -> None:
         
-        self.window = Toplevel(root)
-        self.mainframe = ttk.Frame(self.window, padding='5')
+        self.__window = Toplevel(root)
+        self.__mainframe = ttk.Frame(self.__window, padding='5')
         self.__name = StringVar()
         self.__email = StringVar()
         self.__class = StringVar()
@@ -26,63 +27,53 @@ class InsertStudentScreen(Screen):
         self.__set_buttons()
         self.__set_labels()
         self.__set_entries()
-        self.configure_screen('Inserir Aluno')
+        Screen.configure_screen('Inserir Aluno', self.__window, 
+                                self.__mainframe)
     
     def __set_buttons(self) -> None:
         
-        ttk.Button(self.mainframe, 
-                   text='Cancelar', 
-                   command=self.window.destroy).grid(column=5, row=6,
-                                                       sticky=(W,E))
-        ttk.Button(self.mainframe,
-                   text='Criar Aluno',
-                   command=self.__try_to_create_student).grid(column=6,
-                                                              row=6,
-                                                              sticky=(W,E))
+        button(self.__mainframe, 'Cancelar', 5, 6, (W,E), (self.__window
+                                                         .destroy))
+        
+        button(self.__mainframe, 'Criar Aluno', 6, 6, (W,E), (self
+                                            .__try_to_create_student))
                    
     def __set_labels(self) -> None:
         
-        ttk.Label(self.mainframe, text='Nome: ').grid(column=1, 
-                                                        row=1)
-        ttk.Label(self.mainframe, text='E-mail: ').grid(column=3, 
-                                                          row=1)
-        ttk.Label(self.mainframe, text='Turma: ').grid(column=5, 
-                                                         row=1)
+        label(self.__mainframe, 1, 1, text='Nome:')
+        label(self.__mainframe, 3, 1, text='E-mail:')
+        label(self.__mainframe, 5, 1, text='Turma:')
         
-        ttk.Label(self.mainframe, text='CGM: ').grid(column=1, 
-                                                       row=2)
-        ttk.Label(self.mainframe, text='Turno: ').grid(column=3, 
-                                                         row=2)
+        label(self.__mainframe, 1, 2, text='CGM:')
+        label(self.__mainframe, 3, 2, text='Turno:')
         
-        ttk.Label(self.mainframe, text='Professor: ').grid(column=1, 
-                                                             row=3)
-        ttk.Label(self.mainframe, text='Status: ').grid(column=3, 
-                                                          row=3)
+        label(self.__mainframe, 1, 1, text='Professor:')
+        label(self.__mainframe, 1, 1, text='Status:')
             
     def __set_entries(self) -> None:
         
-        ttk.Entry(self.mainframe, textvariable=self.__name).grid(
+        ttk.Entry(self.__mainframe, textvariable=self.__name).grid(
             column=2, row=1)
-        ttk.Entry(self.mainframe, textvariable=self.__email).grid(
+        ttk.Entry(self.__mainframe, textvariable=self.__email).grid(
             column=4, row=1)
-        ttk.Entry(self.mainframe, textvariable=self.__class).grid(
+        ttk.Entry(self.__mainframe, textvariable=self.__class).grid(
             column=6, row=1)
         
-        ttk.Entry(self.mainframe, textvariable=self.__CGM).grid(
+        ttk.Entry(self.__mainframe, textvariable=self.__CGM).grid(
             column=2, row=2)
-        ttk.Radiobutton(self.mainframe, variable=self.__shift,
+        ttk.Radiobutton(self.__mainframe, variable=self.__shift,
                   text='Manhã', value='M').grid(column=4, row=2, 
                                             sticky=W)
-        ttk.Radiobutton(self.mainframe, variable=self.__shift,
+        ttk.Radiobutton(self.__mainframe, variable=self.__shift,
                   text='Tarde', value='T').grid(column=5, row=2, 
                                             sticky=W)
         
-        ttk.Entry(self.mainframe, textvariable=self.__teacher).grid(
+        ttk.Entry(self.__mainframe, textvariable=self.__teacher).grid(
             column=2, row=3)            
-        ttk.Radiobutton(self.mainframe, variable=self.__status,
+        ttk.Radiobutton(self.__mainframe, variable=self.__status,
                         text='Ativo', value='ATIVO').grid(
             column=4, row=3, sticky=W)
-        ttk.Radiobutton(self.mainframe, variable=self.__status,
+        ttk.Radiobutton(self.__mainframe, variable=self.__status,
                         text='Inativo', value='INATIVO').grid(
             column=5, row=3, sticky=W)      
             
@@ -108,7 +99,7 @@ class InsertStudentScreen(Screen):
             
             if messagebox.askyesno('Tem certeza?', message=message):
                 student.send_to_database()
-                self.window.destroy()
+                self.__window.destroy()
         
         except InvalidNameError:
             messagebox.showwarning('Nome Inválido',

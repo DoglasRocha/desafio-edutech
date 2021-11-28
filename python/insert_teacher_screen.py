@@ -10,8 +10,8 @@ class InsertTeacherScreen(Screen):
     
     def __init__(self, root) -> None:
         
-        self.window = Toplevel(root)
-        self.mainframe = ttk.Frame(self.window, padding='5')
+        self.__window = Toplevel(root)
+        self.__mainframe = ttk.Frame(self.__window, padding='5')
         self.__name = StringVar()
         self.__email = StringVar()
         self.__classes = StringVar()
@@ -22,33 +22,34 @@ class InsertTeacherScreen(Screen):
         self.__set_buttons()
         self.__set_labels()
         self.__set_entries()
-        self.configure_screen('Inserir Professor')
+        Screen.configure_screen('Inserir Professor', self.__window, 
+                                self.__mainframe)
         
     def __set_buttons(self) -> None:
         
-        button(self.mainframe, 'Cancelar', 5, 6, (W,E), (self.window
+        button(self.__mainframe, 'Cancelar', 5, 6, (W,E), (self.__window
                                                          .destroy))
         
-        button(self.mainframe, 'Criar Professor', 6, 6, (W,E), (self
+        button(self.__mainframe, 'Criar Professor', 6, 6, (W,E), (self
                                             .__try_to_create_teacher))
                    
     def __set_labels(self) -> None:
         
-        label(self.mainframe, 1, 1, text='Nome:')
-        label(self.mainframe, 3, 1, text='E-mail:')
-        label(self.mainframe, 5, 1, text='Turmas (separe as turmas'
+        label(self.__mainframe, 1, 1, text='Nome:')
+        label(self.__mainframe, 3, 1, text='E-mail:')
+        label(self.__mainframe, 5, 1, text='Turmas (separe as turmas'
               + 'por vírgula):')
-        label(self.mainframe, 1, 2, text='Turno:')
+        label(self.__mainframe, 1, 2, text='Turno:')
         
     def __set_entries(self) -> None:
         
-        entry(self.mainframe, self.__name, 2, 1)
-        entry(self.mainframe, self.__email, 4, 1)
-        entry(self.mainframe, self.__classes, 6, 1)
+        entry(self.__mainframe, self.__name, 2, 1)
+        entry(self.__mainframe, self.__email, 4, 1)
+        entry(self.__mainframe, self.__classes, 6, 1)
         
-        radio_button(self.mainframe, self.__shift, 'Manhã', 'M', 2, 
+        radio_button(self.__mainframe, self.__shift, 'Manhã', 'M', 2, 
                      2, (W))
-        radio_button(self.mainframe, self.__shift, 'Tarde', 'T', 3, 
+        radio_button(self.__mainframe, self.__shift, 'Tarde', 'T', 3, 
                      2, (W))
     
     def __try_to_create_teacher(self) -> None:
@@ -70,7 +71,7 @@ class InsertTeacherScreen(Screen):
             
             if messagebox.askyesno('Tem certeza?', message=message):
                 instructor.send_to_database()
-                self.window.destroy()
+                self.__window.destroy()
         
         except InvalidNameError:
             messagebox.showwarning('Nome Inválido',

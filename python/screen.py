@@ -1,14 +1,16 @@
 from abc import ABCMeta
 from tkinter import *
+from tkinter import ttk
 
 class Screen(metaclass=ABCMeta):
     
-    def configure_screen(self, title: str) -> None:
+    @staticmethod
+    def configure_screen(title: str, window: Tk, mainframe: ttk.Frame) -> None:
         
-        self.window.title(title)
-        self.mainframe.grid(column=0, row=0, sticky=(N,S,W,E))
-        self.window.columnconfigure(0, weight=1)
-        self.window.rowconfigure(0, weight=1)
+        window.title(title)
+        mainframe.grid(column=0, row=0, sticky=(N,S,W,E))
+        window.columnconfigure(0, weight=1)
+        window.rowconfigure(0, weight=1)
         
-        for child in self.mainframe.winfo_children():
+        for child in mainframe.winfo_children():
             child.grid_configure(padx=10, pady=2.5)
