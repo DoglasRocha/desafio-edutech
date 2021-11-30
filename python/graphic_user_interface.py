@@ -3,6 +3,7 @@ from tkinter import *
 from insert_teacher_screen import InsertTeacherScreen
 from insert_student_screen import InsertStudentScreen
 from students_table_screen import StudentsTableScreen
+from teachers_table_screen import TeachersTableScreen
 from screen import Screen
 from assets import button, label
 
