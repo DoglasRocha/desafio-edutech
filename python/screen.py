@@ -9,6 +9,8 @@ class Screen(metaclass=ABCMeta):
         
         window.title(title)
         mainframe.grid(column=0, row=0, sticky=(N,S,W,E))
+        mainframe.grid_columnconfigure(0, weight=1)
+        mainframe.grid_rowconfigure(0, weight=1)
         window.columnconfigure(0, weight=1)
         window.rowconfigure(0, weight=1)
         

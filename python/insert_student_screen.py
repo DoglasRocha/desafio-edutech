@@ -27,7 +27,7 @@ class InsertStudentScreen(Screen):
         self.__set_buttons()
         self.__set_labels()
         self.__set_entries()
-        Screen.configure_screen('Inserir Aluno', self.__window, 
+        self.configure_screen('Inserir Aluno', self.__window, 
                                 self.__mainframe)
     
     def __set_buttons(self) -> None:

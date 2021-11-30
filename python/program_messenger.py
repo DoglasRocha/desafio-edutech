@@ -32,3 +32,11 @@ class ProgramMessenger:
         
         response = execute_query(query).fetchall()
         return response
+    
+    @staticmethod
+    def select_all_students() -> list:
+        
+        query = 'SELECT * FROM Alunos'
+        
+        response = execute_query(query).fetchall()
+        return response
