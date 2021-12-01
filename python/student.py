@@ -16,7 +16,7 @@ class Student(SchoolMember):
         self.__status = Student.__validate_status(status)
         self.__teacher = Student.__validate_teacher(teacher)
         
-    def send_to_database(self) -> None:
+    def insert_into_database(self) -> None:
         ProgramMessenger.insert_student_into_database(self.__name,
                                                       self.__email,
                                                       self.__class,
@@ -24,6 +24,12 @@ class Student(SchoolMember):
                                                       self.__shift,
                                                       self.__status,
                                                       self.__teacher)
+        
+    def update_student(self) -> None:
+        ProgramMessenger.update_student(self.__name, self.__email,
+                                        self.__class, self.__CGM,
+                                        self.__shift, self.__status,
+                                        self.__teacher)
     
     @staticmethod
     def __validate_class(class_: str) -> str:

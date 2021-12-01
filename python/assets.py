@@ -23,11 +23,12 @@ def entry(mainframe: ttk.Frame, textvariable: StringVar, column: int,
     return _entry
     
 def radio_button(mainframe: ttk.Frame, variable: StringVar, text: str,
-                 value: str, column: int, row: str, sticky: tuple=()
-                 ) -> None:
+                 value: str, column: int, row: str, sticky: tuple=(),
+                 command: callable= lambda: None) -> None:
     
     _radio_button = ttk.Radiobutton(mainframe, variable=variable, 
-                                    text=text, value=value)
+                                    text=text, value=value,
+                                    command=command)
     _radio_button.grid(column=column, row=row, sticky=sticky)
     return _radio_button
                     
