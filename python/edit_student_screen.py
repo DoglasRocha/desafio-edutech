@@ -1,4 +1,4 @@
-from tkinter import StringVar, Toplevel, Tk, ttk, N,E,W,S
+from tkinter import StringVar, Toplevel, Tk, messagebox, ttk, N,E,W,S
 from screen import Screen
 from assets import label, entry, button, radio_button, table_cell
 from program_messenger import ProgramMessenger
@@ -26,6 +26,7 @@ class EditStudentScreen(Screen, StudentValidator):
         
         self.__row = 0
         self.__results = 0
+        self.__already_searched = False
         
         self.__set_search_bar()
         self.configure_screen('Pesquisar Estudante', self._window,
@@ -47,28 +48,37 @@ class EditStudentScreen(Screen, StudentValidator):
     
     def __set_search_result_and_selector(self, result: list) -> None:
         
-        self.__set_titles()
-        
-        for student in result:
-            column = 0
-            for data in student:
-                table_cell(self.__mainframe, column, self.__row,
-                           (W,E), data)
-                if data == student[0]:
-                    radio_button(self.__mainframe, 
-                                 self.__selected_student,
-                                 '', 
-                                 data, 
-                                 5, 
-                                 self.__row,
-                                 (W,E),
-                                 self.__set_form)
-                column += 1
-            self.__row += 1
-            self.__results += 1
+        if not self.__already_searched:
+            self.__set_titles()
             
-        label(self.__mainframe, 0, self.__row)
-        self.__row += 1
+            for student in result:
+                column = 0
+                for data in student:
+                    table_cell(self.__mainframe, column, self.__row,
+                            (W,E), data)
+                    if data == student[0]:
+                        radio_button(self.__mainframe, 
+                                    self.__selected_student,
+                                    '', 
+                                    data, 
+                                    5, 
+                                    self.__row,
+                                    (W,E),
+                                    self.__set_form)
+                    column += 1
+                    
+                self.__row += 1
+                self.__results += 1
+                
+            label(self.__mainframe, 0, self.__row)
+            self.__row += 1
+            self.__already_searched = True
+            
+        else:
+            messagebox.showwarning('Operação não permitida',
+                                   'Para fazer uma pesquisa de outro'
+                                   + ' nome, feche e abra novamente'
+                                   + ' esta janela')
         
     def __set_titles(self) -> None:
         
