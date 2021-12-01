@@ -2,33 +2,33 @@ from tkinter import StringVar, Toplevel, Tk, ttk, N,E,W,S
 from screen import Screen
 from assets import label, entry, button, radio_button, table_cell
 from program_messenger import ProgramMessenger
+from student_validator import StudentValidator
 
-class EditStudentScreen(Screen):
+class EditStudentScreen(Screen, StudentValidator):
     
     def __init__(self, root: Tk) -> None:
         
-        self.__window = Toplevel(root)
-        self.__mainframe = ttk.Frame(self.__window)
+        self._window = Toplevel(root)
+        self.__mainframe = ttk.Frame(self._window)
         self.__searched_name = StringVar()
         self.__selected_student = StringVar()
         
-        self.__name = StringVar()
-        self.__email = StringVar()
-        self.__class = StringVar()
-        self.__CGM = StringVar()
-        self.__shift = StringVar()
-        self.__status = StringVar()
-        self.__teacher = StringVar()
-        self.__data = (self.__name, self.__email, self.__class,
-                       self.__CGM, self.__shift, self.__status,
-                       self.__teacher)
+        self._name = StringVar()
+        self._email = StringVar()
+        self._class = StringVar()
+        self._CGM = StringVar()
+        self._shift = StringVar()
+        self._status = StringVar()
+        self._teacher = StringVar()
+        self._data = (self._name, self._email, self._class,
+                       self._CGM, self._shift, self._status,
+                       self._teacher)
         
         self.__row = 0
+        self.__results = 0
         
         self.__set_search_bar()
-        # self.__set_form()
-        self.__set_buttons()
-        self.configure_screen('Editar Estudante', self.__window,
+        self.configure_screen('Pesquisar Estudante', self._window,
                               self.__mainframe)
         
     def __set_search_bar(self) -> None:
@@ -65,6 +65,10 @@ class EditStudentScreen(Screen):
                                  self.__set_form)
                 column += 1
             self.__row += 1
+            self.__results += 1
+            
+        label(self.__mainframe, 0, self.__row)
+        self.__row += 1
         
     def __set_titles(self) -> None:
         
@@ -78,13 +82,40 @@ class EditStudentScreen(Screen):
     
     def __set_form(self) -> None:
         
-        self.__set_labels()
         student = ProgramMessenger.select_student(self.__selected_student
                                                   .get())[0]
         
-        for i in range(len(self.__data)):
-            self.__data[i].set(student[i])
+        for i in range(len(self._data)):
+            self._data[i].set(student[i])
+        
+        if self.__row - self.__results < 6:     
+            self.__set_labels()
+            self.__set_entries()
+            label(self.__mainframe, 0, self.__row)
+            self.__row += 1
+            self.__set_buttons()
             
+    def __set_entries(self) -> None:
+        
+        label(self.__mainframe, 1, self.__row, (W,E), 
+              text=self._name.get())
+        entry(self.__mainframe, self._email, 3, self.__row)
+        entry(self.__mainframe, self._class, 5, self.__row)
+        self.__row += 1
+        
+        entry(self.__mainframe, self._CGM, 1, self.__row)
+        radio_button(self.__mainframe, self._shift, 'Manhã', 'M',
+                     3, self.__row, (W))
+        radio_button(self.__mainframe, self._shift, 'Tarde', 'T',
+                     4, self.__row, (W))
+        self.__row += 1
+        
+        entry(self.__mainframe, self._teacher, 1, self.__row)     
+        radio_button(self.__mainframe, self._status, 'Ativo', 'ATIVO',
+                     3, self.__row, (W))
+        radio_button(self.__mainframe, self._status, 'Inativo', 'INATIVO',
+                     4, self.__row, (W))
+        self.__row += 1  
         
     def __set_labels(self) -> None:
         
@@ -99,8 +130,16 @@ class EditStudentScreen(Screen):
         
         label(self.__mainframe, 0, self.__row, text='Professor:')
         label(self.__mainframe, 2, self.__row, text='Status:')
+        
         self.__row -= 2
     
     def __set_buttons(self) -> None:
-        pass
+        
+        button(self.__mainframe, 'Cancelar', 5, self.__row, (W,E), 
+               (self._window.destroy))
+        
+        pad = button(self.__mainframe, 'Editar Aluno', 6, self.__row, 
+                     (W,E), self.try_to_create_student)
+        
+        pad.grid_configure(padx=10)
         

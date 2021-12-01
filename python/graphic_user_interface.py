@@ -23,7 +23,7 @@ class UserInterface(Screen):
         text_and_commands = (
             ('Inserir Professor', self.__set_insert_teacher_screen),
             ('Inserir Aluno', self.__set_insert_students_screen),
-            ('Editar Aluno', self.__set_edit_student_screen),
+            ('Pesquisar Aluno', self.__set_edit_student_screen),
             ('Visualizar Professores', self.__set_teachers_table_screen),
             ('Visualizar Alunos', self.__set_students_table_screen),
         )

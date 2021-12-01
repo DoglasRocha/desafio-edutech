@@ -19,7 +19,7 @@ def entry(mainframe: ttk.Frame, textvariable: StringVar, column: int,
           row: int) -> None:
     
     _entry = ttk.Entry(mainframe, textvariable=textvariable)
-    _entry.grid(column=column,row=row)
+    _entry.grid(column=column,row=row, sticky=(W,E))
     return _entry
     
 def radio_button(mainframe: ttk.Frame, variable: StringVar, text: str,
