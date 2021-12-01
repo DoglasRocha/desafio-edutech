@@ -26,13 +26,14 @@ class StudentsTableScreen(TableScreen):
             
     def __set_column_titles(self) -> None:
         
-        table_cell(self.__tableframe, 0, 0, (W,E), 'Nome', 'yellow')
-        table_cell(self.__tableframe, 1, 0, (W,E), 'Email', 'yellow')
-        table_cell(self.__tableframe, 2, 0, (W,E), 'Turma', 'yellow')
-        table_cell(self.__tableframe, 3, 0, (W,E), 'CGM', 'yellow')
-        table_cell(self.__tableframe, 4, 0, (W,E), 'Turno', 'yellow')
-        table_cell(self.__tableframe, 5, 0, (W,E), 'Status', 'yellow')
-        cell = table_cell(self.__tableframe, 6, 0, (W,E), 'Professor', 'yellow')
+        buttons = ('Nome', 'Email', 'Turma', 'CGM', 'Turno', 'Status',
+                   'Professor')
+        row = 0
+        
+        while (row < len(buttons)):
+            table_cell(self.__tableframe, row, 0, (W,E), buttons[row],
+                       'yellow')
+            row += 1
         
         '''self.__one_cell_height = cell.winfo_reqheight()
         self.__one_cell_width = cell.winfo_reqwidth()'''
