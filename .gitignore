@@ -1,7 +1,7 @@
 .venv
 *.log
 test.py
-#cursor.py
+python/cursor.py
 .fake
 .ionide
 __pycache__
