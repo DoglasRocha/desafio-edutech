@@ -1,5 +1,5 @@
 from tkinter import StringVar, Toplevel, Tk, ttk, Frame, W, E 
-from assets import (radio_button, search_bar, table_cell, label,
+from assets import (create_table, create_table_with_selector, radio_button, search_bar, table_cell, label,
                     destroy_children, create_table_titles)
 from program_messenger import ProgramMessenger
 from screen import Screen
@@ -42,24 +42,10 @@ class StudentsPerTeacher(Screen):
             
         self.__row = 0
         self.__set_titles()
-        
-        for teacher in result:
-            column = 0
-            for data in teacher:
-                table_cell(self.__table_frame, column, self.__row,
-                           (W,E), data)
-                if data == teacher[0]:
-                    radio_button(self.__table_frame, 
-                                 self.__selected_teacher,
-                                 'Listar alunos deste professor',
-                                 data, 5, self.__row, (W,E), 
-                                 self.__set_table)
-                column += 1
-            
-            self.__row += 1
-            
-        label(self.__table_frame, 0, self.__row)
-        self.__row += 1
+        create_table_with_selector(result, self.__table_frame, 
+                                   self.__row, self.__selected_teacher,
+                                   'Listar alunos deste professor',
+                                   self.__set_table)
         
     def __set_titles(self) -> None:
         
@@ -74,16 +60,11 @@ class StudentsPerTeacher(Screen):
             self.__selected_teacher.get()
         )
         
-        self.__set_table_titles()
+        destroy_children(self.__table)
         
-        column = 0
-        for student in result:
-            for data in student:
-                table_cell(self.__table, column, self.__row, (W,E),
-                           data)
-                column += 1
-            column = 0
-            self.__row += 1
+        self.__set_table_titles()
+        create_table(result, self.__table, self.__row)
+        
         
     def __set_table_titles(self) -> None:
         

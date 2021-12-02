@@ -9,6 +9,8 @@ class StudentValidator:
     
     def try_to_create_student(self, create_student: bool=True) -> None:
         
+        word = 'cadastrar' if create_student else 'atualizar'
+        
         for data in self._data:
             if '' == data.get():
                 (messagebox.
@@ -22,7 +24,7 @@ class StudentValidator:
                               self._class.get(), self._CGM.get(),
                               self._shift.get(), self._status.get(), 
                               self._teacher.get())
-            message = ('Você tem certeza que quer cadastrar esse aluno?\n'
+            message = (f'Você tem certeza que quer {word} esse aluno?\n'
                        + f'Nome: {self._name.get()}\n'
                        + f'Email: {self._email.get()}\n'
                        + f'Turma: {self._class.get()}\n' 

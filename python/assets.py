@@ -1,6 +1,6 @@
 from tkinter import ttk
 from tkinter import *
-from typing import Iterable
+from typing import Callable, Iterable
 
 def button(mainframe: ttk.Frame, text: str, column: int, row: int,
            sticky: tuple, command: callable=lambda: None) -> None:
@@ -75,3 +75,22 @@ def create_table(data: list, frame: Frame, row: int) -> None:
             table_cell(frame, column, row, text=information)
             column += 1
         row += 1
+        
+def create_table_with_selector(data: list, frame: Frame, row: int,
+                               variable: StringVar, text: str,
+                               command: Callable) -> None:
+    
+    for thing in data:
+        column = 0
+        for item in thing:
+            table_cell(frame, column, row, text=item)
+            
+            if item == thing[0]:
+                radio_button(frame, variable, text, item, 5, row, 
+                             (W,E), command)
+                
+            column += 1
+        row += 1
+            
+    label(frame, 0, row)
+    row += 1

@@ -60,8 +60,8 @@ class InsertStudentScreen(Screen, StudentValidator):
                      5, 2, (W))
         
         entry(self.__mainframe, self._teacher, 2, 3)     
-        radio_button(self.__mainframe, self._status, 'Ativo', 'ATIVO',
-                     4, 3, (W))
-        radio_button(self.__mainframe, self._status, 'Inativo', 'INATIVO',
-                     5, 3, (W))  
+        radio_button(self.__mainframe, self._status, 'Ativo', 
+                     'ATIVO', 4, 3, (W))
+        radio_button(self.__mainframe, self._status, 'Inativo', 
+                     'INATIVO', 5, 3, (W))  
     

@@ -1,4 +1,5 @@
 USE EdutechDB;
+DELETE Alunos WHERE Nome='Doglas'
 
 select * from Professores;
 

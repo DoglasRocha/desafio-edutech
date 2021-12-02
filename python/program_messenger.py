@@ -73,10 +73,10 @@ class ProgramMessenger:
         
         query = f'''UPDATE Alunos
         SET Email = '{email}',
-            Turma = '{class_}'
-            CGM = {CGM}
-            Turno = '{shift}'
-            Status_ = '{status}'
+            Turma = '{class_}',
+            CGM = {CGM},
+            Turno = '{shift}',
+            Status_ = '{status}',
             Professor = '{teacher}'
         WHERE Nome = '{name}'
         '''

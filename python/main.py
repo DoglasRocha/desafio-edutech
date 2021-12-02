@@ -1,3 +1,3 @@
-from instructor import Instructor
-from student import Student
-from cursor import connect_to_database
+from graphic_user_interface import UserInterface
+
+UserInterface()
