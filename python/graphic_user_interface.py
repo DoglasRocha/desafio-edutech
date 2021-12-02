@@ -22,12 +22,12 @@ class UserInterface(Screen):
     def __set_all_buttons(self) -> None:
         
         text_and_commands = (
-            ('Inserir Professor', self.__set_insert_teacher_screen),
             ('Inserir Aluno', self.__set_insert_students_screen),
+            ('Inserir Professor', self.__set_insert_teacher_screen),
             ('Pesquisar Aluno', self.__set_edit_student_screen),
             ('Pesquisar Professor', self.__set_teacher_screen),
-            ('Visualizar Professores', self.__set_teachers_table_screen),
-            ('Visualizar Alunos', self.__set_students_table_screen),
+            ('Visualizar todos os Alunos', self.__set_students_table_screen),
+            ('Visualizar todos os Professores', self.__set_teachers_table_screen),
         )
         
         label(self.__mainframe, 1, 1, (W,E))

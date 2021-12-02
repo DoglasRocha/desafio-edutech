@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from table_screen import TableScreen
 from program_messenger import ProgramMessenger
-from assets import create_table_titles, table_cell
+from assets import create_table, create_table_titles, table_cell
 
 class StudentsTableScreen(TableScreen):
     
@@ -38,10 +38,6 @@ class StudentsTableScreen(TableScreen):
         
         students = ProgramMessenger.select_all_students()
         
-        for student in students:
-            column = 0
-            for data in student:
-                table_cell(self.__tableframe, column, self.__rows, text=data)
-                column += 1
-            self.__rows += 1
+        create_table(students, self.__tableframe, self.__rows)
+        
             

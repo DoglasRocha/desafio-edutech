@@ -66,3 +66,12 @@ def create_table_titles(titles: Iterable, table_frame: Frame,
     for title in titles:
         table_cell(table_frame, column, row, (W,E), title, 'yellow')
         column += 1
+        
+def create_table(data: list, frame: Frame, row: int) -> None:
+    
+    for member in data:
+        column = 0
+        for information in member:
+            table_cell(frame, column, row, text=information)
+            column += 1
+        row += 1
