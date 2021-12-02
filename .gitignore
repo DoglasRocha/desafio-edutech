@@ -3,5 +3,5 @@
 test.py
 python/cursor.py
 .fake
-.ionide
-__pycache__
+.ionide/
+__pycache__/

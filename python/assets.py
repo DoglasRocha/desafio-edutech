@@ -51,3 +51,8 @@ def search_bar(frame: Frame, initial_column: int, row: int,
     
     for child in frame.winfo_children():
         child.grid_configure(padx=5)
+        
+def destroy_children(frame: Frame) -> None:
+    
+    for child in frame.winfo_children():
+        child.destroy()

@@ -1,5 +1,6 @@
-from tkinter import Canvas, StringVar, Toplevel, Tk, ttk, Frame, W, E 
-from assets import radio_button, search_bar, table_cell, label
+from tkinter import StringVar, Toplevel, Tk, ttk, Frame, W, E 
+from assets import (radio_button, search_bar, table_cell, label,
+                    destroy_children)
 from program_messenger import ProgramMessenger
 from screen import Screen
 
@@ -36,11 +37,8 @@ class StudentsPerTeacher(Screen):
         
     def __set_search_result_and_selector(self, result: list) -> None:
         
-        for child in self.__table_frame.winfo_children():
-            child.destroy()
-        
-        for child in self.__table.winfo_children():
-            child.destroy()
+        destroy_children(self.__table_frame)
+        destroy_children(self.__table)
             
         self.__row = 0
         self.__set_titles()
