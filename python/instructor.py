@@ -7,7 +7,7 @@ class Instructor(SchoolMember):
     
     def __init__(self, name: str, email: str, classes: str, 
                  shift: str) -> None:
-        self.__name = Instructor.validate_name(name)
+        self.__name = Instructor.validate_name(name, False)
         self.__email = Instructor.validate_email(email)
         self.__classes = Instructor.__validate_classes(classes)
         self.__shift = Instructor.validate_shift(shift)

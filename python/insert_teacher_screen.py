@@ -3,7 +3,7 @@ from tkinter import StringVar, Toplevel, ttk, messagebox
 from screen import Screen
 from instructor import Instructor
 from assets import button, label, entry, radio_button
-from errors import (InvalidNameError, InvalidEmailError, 
+from errors import (ExistentTeacherError, InvalidNameError, InvalidEmailError, 
                     InvalidClassesError, InvalidShiftError)
 
 class InsertTeacherScreen(Screen):
@@ -76,17 +76,27 @@ class InsertTeacherScreen(Screen):
                 self.__window.destroy()
         
         except InvalidNameError:
+            
             messagebox.showwarning('Nome Inválido',
                                    message='O nome preenchido é inválido!!')
             
         except InvalidEmailError:
+            
             messagebox.showwarning('Email Inválido',
                                    message='O email preenchido é inválido!!')
         
         except InvalidClassesError:
+            
             messagebox.showwarning('Turma Inválida',
                                    message='A turma preenchida é inválida!!')
             
         except InvalidShiftError:
+            
             messagebox.showwarning('Turno Inválido',
                                    message='O turno preenchido é inválido!!')
+            
+        except ExistentTeacherError:
+            
+            messagebox.showwarning('Nome Inválido',
+                                   message='Este professor já foi cadastrado!!')
+            

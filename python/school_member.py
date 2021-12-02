@@ -1,16 +1,30 @@
 from abc import ABCMeta
-from errors import (InvalidNameError, InvalidEmailError,
+from errors import (ExistentStudentError, ExistentTeacherError, InvalidNameError, InvalidEmailError,
                     InvalidShiftError)
+from program_messenger import ProgramMessenger
 import re
 
 class SchoolMember(metaclass=ABCMeta):
     
     @staticmethod
-    def validate_name(name: str) -> str:
+    def validate_name(name: str, student: bool) -> str:
         
         pattern = re.compile('[a-zA-Z ]{1,}')
         
         if pattern.match(name):
+            
+            if student:
+                result = ProgramMessenger.select_student(name)
+                
+                if len(result) > 0:
+                    raise ExistentStudentError()
+            
+            else:
+                result = ProgramMessenger.select_teacher(name)
+                
+                if len(result) > 0:
+                    raise ExistentTeacherError()
+                
             return name
         
         raise InvalidNameError()

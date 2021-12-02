@@ -1,6 +1,6 @@
 from tkinter import messagebox
 from student import Student
-from errors import (InvalidNameError, InvalidEmailError, 
+from errors import (ExistentStudentError, InvalidNameError, InvalidEmailError, 
                     InvalidClassError, InvalidCGMError,
                     InvalidShiftError, InvalidStatusError,
                     InvalidTeacherNameError)
@@ -42,26 +42,32 @@ class StudentValidator:
                 self._window.destroy()
         
         except InvalidNameError:
+            
             messagebox.showwarning('Nome Inválido',
                                    message='O nome preenchido é inválido!!')
             
         except InvalidEmailError:
+            
             messagebox.showwarning('Email Inválido',
                                    message='O email preenchido é inválido!!')
         
         except InvalidClassError:
+            
             messagebox.showwarning('Turma Inválida',
                                    message='A turma preenchida é inválida!!')
         
         except InvalidCGMError:
+            
             messagebox.showwarning('CGM Inválido',
                                    message='O CGM preenchido é inválido!!')
         
         except InvalidStatusError:
+            
             messagebox.showwarning('Status Inválido',
                                    message='O status preenchido é inválido!!')
         
         except InvalidShiftError:
+            
             messagebox.showwarning('Turno Inválido',
                                    message='O turno preenchido é inválido!!')
         
@@ -71,3 +77,8 @@ class StudentValidator:
             
             messagebox.showwarning('Nome Inválido',
                                    message=message)
+            
+        except ExistentStudentError:
+            
+            messagebox.showwarning('Nome Inválido',
+                                   message='Esse aluno já foi cadastrado!!')

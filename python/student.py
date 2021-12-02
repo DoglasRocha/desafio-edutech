@@ -1,14 +1,14 @@
 import re
 from program_messenger import ProgramMessenger
 from school_member import SchoolMember
-from errors import (InvalidClassError, InvalidCGMError,
+from errors import (ExistentStudentError, InvalidClassError, InvalidCGMError,
                     InvalidStatusError, InvalidTeacherNameError)
 
 class Student(SchoolMember):
     
     def __init__(self, name: str, email: str, _class: str, CGM: str,
                  shift: str, status: str, teacher: str) -> None:
-        self.__name = Student.validate_name(name)
+        self.__name = Student.validate_name(name, True)
         self.__email = Student.validate_email(email)
         self.__class = Student.__validate_class(_class)
         self.__CGM = Student.__validate_CGM(CGM)
