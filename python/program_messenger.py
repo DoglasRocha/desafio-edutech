@@ -87,8 +87,19 @@ class ProgramMessenger:
     def select_teacher(name: str) -> list:
         
         query = f'''SELECT Nome, Email, Turno FROM Professores 
-        WHERE Nome LIKE '{name}'
+        WHERE Nome LIKE '%{name}%'
         '''
         
         response = execute_query(query).fetchall()
         return response        
+    
+    @staticmethod
+    def select_students_per_teacher(teacher_name: str) -> list:
+        
+        query = f'''SELECT Nome, Email, CGM, Turno, Turma, Professor
+        FROM Alunos
+        WHERE Professor = '{teacher_name}'
+        '''
+        
+        response = execute_query(query).fetchall()
+        return response

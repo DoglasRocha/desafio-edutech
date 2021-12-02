@@ -1,4 +1,4 @@
-from tkinter import StringVar, Toplevel, Tk, ttk, Frame, W, E 
+from tkinter import Canvas, StringVar, Toplevel, Tk, ttk, Frame, W, E 
 from assets import radio_button, search_bar, table_cell, label
 from program_messenger import ProgramMessenger
 from screen import Screen
@@ -11,6 +11,7 @@ class StudentsPerTeacher(Screen):
         self.__mainframe = ttk.Frame(self.__window)
         self.__searchbar_frame = Frame(self.__mainframe)
         self.__table_frame = Frame(self.__mainframe)
+        self.__table = Frame(self.__mainframe)
         
         self.__searched_name = StringVar()
         self.__selected_teacher = StringVar()
@@ -37,6 +38,9 @@ class StudentsPerTeacher(Screen):
         
         for child in self.__table_frame.winfo_children():
             child.destroy()
+        
+        for child in self.__table.winfo_children():
+            child.destroy()
             
         self.__row = 0
         self.__set_titles()
@@ -61,7 +65,7 @@ class StudentsPerTeacher(Screen):
         
     def __set_titles(self) -> None:
         
-        titles = ('Nome', 'Email', 'Turno', 'Turmas')
+        titles = ('Nome', 'Email', 'Turno')
         column = 0
         
         for title in titles:
@@ -71,3 +75,31 @@ class StudentsPerTeacher(Screen):
         
         self.__row += 1
         
+    def __set_table(self) -> None:
+        
+        result = ProgramMessenger.select_students_per_teacher(
+            self.__selected_teacher.get()
+        )
+        
+        self.__set_table_titles()
+        
+        column = 0
+        for student in result:
+            for data in student:
+                table_cell(self.__table, column, self.__row, (W,E),
+                           data)
+                column += 1
+            column = 0
+            self.__row += 1
+        
+    def __set_table_titles(self) -> None:
+        
+        titles = ('Nome', 'Email', 'CGM', 'Turno', 'Turma', 'Professor')
+        column = 0
+        
+        for title in titles:
+            table_cell(self.__table, column, self.__row, (W,E),
+                       title, 'yellow')
+            column += 1
+        
+        self.__row += 1

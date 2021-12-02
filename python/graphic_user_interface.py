@@ -5,6 +5,7 @@ from insert_student_screen import InsertStudentScreen
 from students_table_screen import StudentsTableScreen
 from teachers_table_screen import TeachersTableScreen
 from edit_student_screen import EditStudentScreen
+from students_teacher import StudentsPerTeacher
 from screen import Screen
 from assets import button, label
 
@@ -24,6 +25,7 @@ class UserInterface(Screen):
             ('Inserir Professor', self.__set_insert_teacher_screen),
             ('Inserir Aluno', self.__set_insert_students_screen),
             ('Pesquisar Aluno', self.__set_edit_student_screen),
+            ('Pesquisar Professor', self.__set_teacher_screen),
             ('Visualizar Professores', self.__set_teachers_table_screen),
             ('Visualizar Alunos', self.__set_students_table_screen),
         )
@@ -53,5 +55,8 @@ class UserInterface(Screen):
 
     def __set_students_table_screen(self) -> None:
         StudentsTableScreen(self.__root)
+        
+    def __set_teacher_screen(self) -> None:
+        StudentsPerTeacher(self.__root)
         
 UserInterface()

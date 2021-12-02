@@ -4,7 +4,7 @@ select * from Professores;
 
 select * from Alunos;
 
-select * from Alunos alu
+select alu.Nome, alu.Email, alu.Professor from Alunos alu
     inner join Professores pro
     on alu.Professor = pro.Nome
     and pro.Nome = 'Paulo'
