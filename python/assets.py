@@ -24,7 +24,7 @@ def entry(mainframe: ttk.Frame, textvariable: StringVar, column: int,
     
 def radio_button(mainframe: ttk.Frame, variable: StringVar, text: str,
                  value: str, column: int, row: str, sticky: tuple=(),
-                 command: callable= lambda: None) -> None:
+                 command: callable=lambda: None) -> None:
     
     _radio_button = ttk.Radiobutton(mainframe, variable=variable, 
                                     text=text, value=value,
@@ -39,3 +39,15 @@ def table_cell(mainframe: ttk.Frame, column: int, row: int,
                  relief='ridge', padx=0, pady=0, width=30)
     _label.grid(column=column,row=row, sticky=(W,E))
     return _label
+
+def search_bar(frame: Frame, initial_column: int, row: int,
+               text_variable: StringVar, label_text: str,
+               command: callable=lambda: None) -> None:
+    
+    label(frame, initial_column, row, (W,E), label_text)
+    entry(frame, text_variable, initial_column + 1, row)
+    button(frame, 'Pesquisar', initial_column + 2, row, (W,E),
+           command)
+    
+    for child in frame.winfo_children():
+        child.grid_configure(padx=5)

@@ -52,7 +52,9 @@ class ProgramMessenger:
     @staticmethod
     def select_students_by_name(name: str) -> list:
         
-        query = f"SELECT Nome, Email, CGM, Turma FROM Alunos WHERE Nome LIKE '%{name}%'"
+        query = f'''SELECT Nome, Email, CGM, Turma FROM Alunos 
+        WHERE Nome LIKE '%{name}%'
+        '''
         
         response = execute_query(query).fetchall()
         return response
@@ -81,3 +83,12 @@ class ProgramMessenger:
         
         execute_query(query)
         
+    @staticmethod
+    def select_teacher(name: str) -> list:
+        
+        query = f'''SELECT Nome, Email, Turno FROM Professores 
+        WHERE Nome LIKE '{name}'
+        '''
+        
+        response = execute_query(query).fetchall()
+        return response        

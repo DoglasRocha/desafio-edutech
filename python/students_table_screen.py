@@ -26,12 +26,12 @@ class StudentsTableScreen(TableScreen):
             
     def __set_column_titles(self) -> None:
         
-        buttons = ('Nome', 'Email', 'Turma', 'CGM', 'Turno', 'Status',
+        titles = ('Nome', 'Email', 'Turma', 'CGM', 'Turno', 'Status',
                    'Professor')
         row = 0
         
-        while (row < len(buttons)):
-            table_cell(self.__tableframe, row, 0, (W,E), buttons[row],
+        while (row < len(titles)):
+            table_cell(self.__tableframe, row, 0, (W,E), titles[row],
                        'yellow')
             row += 1
         
