@@ -1,5 +1,6 @@
 from tkinter import ttk
 from tkinter import *
+from typing import Iterable
 
 def button(mainframe: ttk.Frame, text: str, column: int, row: int,
            sticky: tuple, command: callable=lambda: None) -> None:
@@ -33,11 +34,11 @@ def radio_button(mainframe: ttk.Frame, variable: StringVar, text: str,
     return _radio_button
                     
 def table_cell(mainframe: ttk.Frame, column: int, row: int, 
-               sticky:tuple = (), text: str='', color='white') -> None:
+               sticky:tuple = (W,E), text: str='', color='white') -> None:
     
     _label =  Label(mainframe, text=text, bg=color, borderwidth=2, 
                  relief='ridge', padx=0, pady=0, width=30)
-    _label.grid(column=column,row=row, sticky=(W,E))
+    _label.grid(column=column,row=row, sticky=sticky)
     return _label
 
 def search_bar(frame: Frame, initial_column: int, row: int,
@@ -56,3 +57,12 @@ def destroy_children(frame: Frame) -> None:
     
     for child in frame.winfo_children():
         child.destroy()
+        
+def create_table_titles(titles: Iterable, table_frame: Frame, 
+                        row: int) -> None:
+    
+    column = 0
+    
+    for title in titles:
+        table_cell(table_frame, column, row, (W,E), title, 'yellow')
+        column += 1

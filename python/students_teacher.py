@@ -1,6 +1,6 @@
 from tkinter import StringVar, Toplevel, Tk, ttk, Frame, W, E 
 from assets import (radio_button, search_bar, table_cell, label,
-                    destroy_children)
+                    destroy_children, create_table_titles)
 from program_messenger import ProgramMessenger
 from screen import Screen
 
@@ -64,12 +64,7 @@ class StudentsPerTeacher(Screen):
     def __set_titles(self) -> None:
         
         titles = ('Nome', 'Email', 'Turno')
-        column = 0
-        
-        for title in titles:
-            table_cell(self.__table_frame, column, self.__row, (W,E),
-                       title, 'yellow')
-            column += 1
+        create_table_titles(titles, self.__table_frame, self.__row)
         
         self.__row += 1
         
@@ -93,11 +88,6 @@ class StudentsPerTeacher(Screen):
     def __set_table_titles(self) -> None:
         
         titles = ('Nome', 'Email', 'CGM', 'Turno', 'Turma', 'Professor')
-        column = 0
-        
-        for title in titles:
-            table_cell(self.__table, column, self.__row, (W,E),
-                       title, 'yellow')
-            column += 1
+        create_table_titles(titles, self.__table, self.__row)
         
         self.__row += 1

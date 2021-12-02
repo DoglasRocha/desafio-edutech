@@ -1,7 +1,8 @@
-from tkinter import (StringVar, Toplevel, Tk, messagebox, ttk, N, E,
-                     W, S, Frame)
+from tkinter import (StringVar, Toplevel, Tk, ttk, E,
+                     W, Frame)
 from screen import Screen
-from assets import label, entry, button, radio_button, search_bar, table_cell
+from assets import (destroy_children, label, entry, button, radio_button, search_bar, 
+                    table_cell, create_table_titles)
 from program_messenger import ProgramMessenger
 from student_validator import StudentValidator
 
@@ -43,14 +44,12 @@ class EditStudentScreen(Screen, StudentValidator):
     def __search_name(self) -> None:
         names = ProgramMessenger.select_students_by_name(
             self.__searched_name.get())
-        print(names, self.__searched_name.get())
         
         self.__set_search_result_and_selector(names)
     
     def __set_search_result_and_selector(self, result: list) -> None:
         
-        for child in self.__table_and_form_frame.winfo_children():
-            child.destroy()
+        destroy_children(self.__table_and_form_frame)
             
         self.__row = 0
         self.__set_titles()
@@ -76,12 +75,8 @@ class EditStudentScreen(Screen, StudentValidator):
     def __set_titles(self) -> None:
         
         titles = ('Nome', 'Email', 'CGM', 'Turma')
-        column = 0
-        
-        for title in titles:
-            table_cell(self.__table_and_form_frame, column, 
-                       self.__row, (W,E), title, 'yellow')
-            column += 1
+        create_table_titles(titles, self.__table_and_form_frame,
+                            self.__row)
             
         self.__row += 1
     

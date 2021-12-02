@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from table_screen import TableScreen
 from program_messenger import ProgramMessenger
-from assets import table_cell
+from assets import create_table_titles, table_cell
 
 class TeachersTableScreen(TableScreen):
     
@@ -22,13 +22,8 @@ class TeachersTableScreen(TableScreen):
     
     def __set_column_titles(self) -> None:
         
-        buttons = ('Nome', 'Email', 'Turmas', 'Turno')
-        row = 0
-        
-        while (row < len(buttons)):
-            table_cell(self.__tableframe, row, 0, (W,E), buttons[row],
-                       'yellow')
-            row += 1
+        titles = ('Nome', 'Email', 'Turmas', 'Turno')
+        create_table_titles(titles, self.__tableframe, 0)
         
         '''self.__one_cell_height = cell.winfo_reqheight()
         self.__one_cell_width = cell.winfo_reqwidth()'''

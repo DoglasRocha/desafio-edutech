@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from table_screen import TableScreen
 from program_messenger import ProgramMessenger
-from assets import table_cell
+from assets import create_table_titles, table_cell
 
 class StudentsTableScreen(TableScreen):
     
@@ -28,12 +28,8 @@ class StudentsTableScreen(TableScreen):
         
         titles = ('Nome', 'Email', 'Turma', 'CGM', 'Turno', 'Status',
                    'Professor')
-        row = 0
         
-        while (row < len(titles)):
-            table_cell(self.__tableframe, row, 0, (W,E), titles[row],
-                       'yellow')
-            row += 1
+        create_table_titles(titles, self.__tableframe, 0)
         
         '''self.__one_cell_height = cell.winfo_reqheight()
         self.__one_cell_width = cell.winfo_reqwidth()'''
